@@ -5,7 +5,7 @@ web:
     - PORTUS_MACHINE_FQDN_VALUE=EXTERNAL_IP
     - PORTUS_DB_HOST=portus_db_1
   volumes:
-    - .:/portus
+    - /portus/portus:/portus
   ports:
     - 3000:3000
   links:
@@ -18,7 +18,7 @@ crono:
     - PORTUS_MACHINE_FQDN=EXTERNAL_IP
     - PORTUS_DB_HOST=portus_db_1
   volumes:
-    - .:/portus
+    - /portus/portus:/portus
   links:
     - db
 
@@ -31,8 +31,8 @@ registry:
   image: library/registry:2.3.1
   volumes:
     - /registry_data
-    - ./compose/registry/portus.crt:/etc/docker/registry/portus.crt:ro
-    - ./compose/registry/config.yml:/etc/docker/registry/config.yml:ro
+    - /portus/portus/compose/registry/portus.crt:/etc/docker/registry/portus.crt:ro
+    - /portus/portus/compose/registry/config.yml:/etc/docker/registry/config.yml:ro
   ports:
     - 5000:5000
     - 5001:5001 # required to access debug service
